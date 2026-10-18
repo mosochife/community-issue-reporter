@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ issue['title'] }}</title>
+</head>
+<body>
+    <p><a href="/issues">&larr; Back to all issues</a></p>
+
+    <h1>{{ issue['title'] }}</h1>
+    <p>{{ issue['description'] }}</p>
+    <p><strong>Location:</strong> {{ issue['location'] }}</p>
+    <p><strong>Category:</strong> {{ issue['category'] }}</p>
+    <p><strong>Status:</strong> {{ issue['status'] }}</p>
+
+<form method="POST" action="/issues/{{ issue['id'] }}/status">
+    <select name="status">
+        <option {% if issue['status'] == 'Open' %}selected{% endif %}>Open</option>
+        <option {% if issue['status'] == 'In Progress' %}selected{% endif %}>In Progress</option>
+        <option {% if issue['status'] == 'Resolved' %}selected{% endif %}>Resolved</option>
+    </select>
+    <button type="submit">Update Status</button>
+</form>
+    <p><strong>Reported:</strong> {{ issue['created_at'] }}</p>
+</body>
+</html>

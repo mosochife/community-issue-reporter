@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Issues</title>
+</head>
+<body>
+    <h1>Reported Issues</h1>
+    <p><a href="/report">Report a new issue</a></p>
+
+    {% if issues %}
+        {% for issue in issues %}
+            <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+                <h3><a href="/issues/{{ issue['id'] }}">{{ issue['title'] }}</a></h3>
+                <p>{{ issue['description'] }}</p>
+                <p>
+                    <strong>Location:</strong> {{ issue['location'] }} |
+                    <strong>Category:</strong> {{ issue['category'] }} |
+                    <strong>Status:</strong> {{ issue['status'] }}
+                </p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No issues reported yet.</p>
+    {% endif %}
+</body>
+</html>

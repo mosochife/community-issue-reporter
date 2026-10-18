@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Report an Issue</title>
+</head>
+<body>
+    <h1>Report a Community Issue</h1>
+
+    <form method="POST">
+        <p>
+            <label>Title</label><br>
+            <input type="text" name="title" required>
+        </p>
+        <p>
+            <label>Description</label><br>
+            <textarea name="description" rows="4" required></textarea>
+        </p>
+        <p>
+            <label>Location</label><br>
+            <input type="text" name="location" required>
+        </p>
+        <p>
+            <label>Category</label><br>
+            <select name="category">
+                <option>Roads</option>
+                <option>Water</option>
+                <option>Electricity</option>
+                <option>Waste</option>
+                <option>Other</option>
+            </select>
+        </p>
+        <button type="submit">Submit Issue</button>
+    </form>
+</body>
+</html>
