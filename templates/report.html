@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Report an Issue</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Report an Issue{% endblock %}
+
+{% block content %}
     <h1>Report a Community Issue</h1>
 
-    <form method="POST">
+    <form method="POST" class="card">
         <p>
             <label>Title</label><br>
             <input type="text" name="title" required>
@@ -31,5 +30,4 @@
         </p>
         <button type="submit">Submit Issue</button>
     </form>
-</body>
-</html>
+{% endblock %}
