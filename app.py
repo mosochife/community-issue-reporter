@@ -3,9 +3,11 @@ from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
+CATEGORIES = ['Roads', 'Water', 'Electricity', 'Waste', 'Other']
+
 @app.route('/')
 def home():
-    return 'Community Issue Reporter is running!'
+    return redirect('/issues')
 
 @app.route('/report', methods=['GET', 'POST'])
 def report():
@@ -23,19 +25,34 @@ def report():
         connection.commit()
         connection.close()
 
-        return 'Issue submitted! <a href="/report">Report another</a>'
+        return redirect('/issues')
 
     return render_template('report.html')
 
 @app.route('/issues')
 def issues():
+    selected = request.args.get('category', '')
+
     connection = sqlite3.connect('issues.db')
     connection.row_factory = sqlite3.Row
-    all_issues = connection.execute(
-        'SELECT * FROM issues ORDER BY created_at DESC'
-    ).fetchall()
+
+    if selected:
+        all_issues = connection.execute(
+            'SELECT * FROM issues WHERE category = ? ORDER BY created_at DESC',
+            (selected,)
+        ).fetchall()
+    else:
+        all_issues = connection.execute(
+            'SELECT * FROM issues ORDER BY created_at DESC'
+        ).fetchall()
+
     connection.close()
-    return render_template('issues.html', issues=all_issues)
+    return render_template(
+        'issues.html',
+        issues=all_issues,
+        categories=CATEGORIES,
+        selected=selected
+    )
 
 @app.route('/issues/<int:issue_id>')
 def issue_detail(issue_id):
